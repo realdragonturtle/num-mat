@@ -1,0 +1,1 @@
+# Ravnovesje vzmeti

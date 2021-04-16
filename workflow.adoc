@@ -1,0 +1,178 @@
+= Developer documentation
+Martin Vuk <martin.vuk@fri.uni-lj.si>
+
+This document describes the best practices to be followed when working with 
+https://git-scm.com/[Git] and https://gitlab.com[GitLab] in this project. 
+
+NOTE: We *strongly* suggest you use Git from the *command line*.
+Our suggestion is `zsh` with https://ohmyz.sh/[Oh my ZSH!] on Unix
+and http://babun.github.io/[Babun] on Windows.
+
+== The Goals
+
+The goals we want to achieve are
+
+* to have a *codebase* that is manageable and *well documented*
+* to communicate among the members of the team as conveniently as possible
+* to know and document what each one of us is doing
+
+To achieve these goals, we will use the features of Git and Gitlab.
+
+== The recomended Workflow
+
+NOTE: A *workflow* is a way of doing things.
+It can help us or present a burden.
+
+=== Overview
+
+1. Create an issue
+2. Create a new branch, push it to GitLab
+3. Create a WIP merge request linking to the issue
+4. Code, test, code, ...
+5. Rebase your branch to `master`
+6. Remove WIP from the merge request and invite someone to review your changes
+7. Merge the code to `master`, remove the source branch and close the issue
+
+=== Create an issue
+
+Issues should be the primary source for documenting the development process.
+
+TODO
+
+=== Create a new branch
+
+Starting from `master`, create a new branch and push it to GitLab.
+
+    git checkout master
+    git pull origin master
+    git checkout -b my-new-feature
+    git push origin my-new-feature
+    
+[NOTE]
+====
+* Use `dagger-case` for branch names.
+* If a branch is related to an issue, prepend its number to the branch name
+(for example `314-area-of-the-unit-circle`).
+====
+
+=== Create a WIP merge request
+
+https://about.gitlab.com/2016/01/08/feature-highlight-wip/[WIP merge request]
+is a way to create a merge request
+that can not be accidentally merged until is ready.
+Creating a WIP merge requests will help others on your team to better understand
+what it is that you are doing at the moment,
+and what is the purpose of different branches.
+
+[NOTE]
+.Remember to
+====
+* add WIP in the title of your merge request
+* add a link to the issue describing the problem
+====
+
+=== Code, test, code
+
+Now you can finaly start coding. 
+
+[NOTE]
+.Don't forget
+====
+* make incremental commits 
+* test the code with automated tests
+* write your own tests that test your new feature
+====
+
+=== Rebase your branch onto `master`
+
+Rebasing is similar to merging,
+but the order of commits is rearanged so that we get a linear history.
+Make sure you read about
+https://www.atlassian.com/git/tutorials/merging-vs-rebasing[Merging vs. Rebasing]
+before you proceed.
+
+WARNING: *Never rebase the `master` branch!!!*
+
+To rebase your branch onto master
+
+    git fetch origin master
+    git checkout my-new-feature
+    git rebase master
+
+After rebase,
+the commits of your branch will simply follow the tip of `master` branch.
+
+If Git can not merge automatically,
+read the message carefully and proceed as suggested. 
+
+
+NOTE: If git complains with `error: failed to push some refs to ...` you can use a switch 
+`--force-with-lease` which is a safer variant of `--force`
+
+WARNING: *Never ever force push to the origin!!!*
+
+
+=== Invite someone to review your changes
+
+Remove WIP from the merge request and invite someone to review your changes
+by mentioning them in a comment to the merge request.
+
+[NOTE]
+.Remember to
+====
+* remove WIP from the title
+* mention the nicknames of whoever you want to review the changes
+====
+
+=== Merge the code to `master`, remove the source branch and close the issue
+
+
+== Dos and don'ts
+
+=== Everything should be in Git
+Every contribution in text format and especially *the code itself*
+*should be put into the Git version control system*.
+
+=== Don't commit in `master`!
+
+*Use branches!!!*
+Create a branch and merge with `master` when your changes are ready.
+The exceptions are minor chanages
+(code that does not affect core functionality like printing to console, etc.)
+or changes that do not touch the code itself,
+like documentation, comments, print statements, indentation, etc.
+*The `master` branch should always pass all tests.*
+
+=== Commit frequently
+
+*Every change that is rounded should be committed.*
+If a change can be split into two separate changes that make sense on their own,
+then do this.
+Exceptions to the rule are the initial commits and commits of new features -
+however, the next rule still applies.
+
+=== DOs and DON'Ts of commit messages
+
+Don't:
+
+* *Don't end the summary line with a period*
+  as it is a title and these don't end with periods.
+
+Do:
+
+* *Use the imperative mode* when writing the summary line
+  and describing what you have done,
+  as if you were commanding someone -
+  e.g., start the line with _Fix_, _Add_, _Change_
+  instead of _Fixed_, _Added_, _Changed_;
+* *Leave the second line blank*;
+* *Line break the commit message* and make it readable
+  without having to scroll horizontally (line = 80 characters).
+
+TIP: If you feel it's difficult to summarize what you are trying to commit,
+this may be due to the nature of the commit,
+which would be better split up into several separate commits.
+
+NOTE: See also GitHub's
+https://github.com/erlang/otp/wiki/writing-good-commit-messages[Writing good commit messages] article
+and https://git-scm.com/book/ch5-2.html[chapter 5 of the Git book]
