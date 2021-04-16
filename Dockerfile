@@ -1,4 +1,4 @@
-FROM julia:1.0
+FROM julia:1.6
 
 RUN apt-get -qq update && apt-get -y install git bzip2
 WORKDIR /root
