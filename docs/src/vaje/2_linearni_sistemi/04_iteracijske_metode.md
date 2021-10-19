@@ -52,7 +52,6 @@ in dobimo [metodo SOR](https://en.wikipedia.org/wiki/Successive_over-relaxation)
 
 ```julia
 using Plots
-pyplot()
 U0 = zeros(20, 20)
 x = LinRange(0, pi, 20)
 U0[1,:] = sin.(x)

@@ -1,4 +1,4 @@
-# Numerična matematika na FRI
+# Rešeni problemi iz numerične matematike
 
 To je dokumentacija z gradivi za vaje in domače naloge pri predmetu [Numerična matematika](https://ucilnica.fri.uni-lj.si/1920/course/view.php?id=117).
 

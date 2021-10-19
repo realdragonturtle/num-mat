@@ -136,7 +136,6 @@ Poglejmo si, kako je s hitrostjo konvergence pri produktnih kvadraturah.
 
 ```@example razdalja
 using Plots, Random
-pyplot()
 Random.seed!(1234)
 ndquad_simpson(f, n, dim) = ndquad(f, LinRange(0, 1, 2n+1), 
                             1/(6n)*vcat([1], repeat([4,2], n-1), [4, 1]), dim)

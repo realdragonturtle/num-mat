@@ -512,7 +512,7 @@ uuid = "ca575930-c2e3-43a9-ace4-1e988b2c1908"
 
 [[NumMat]]
 deps = ["LinearAlgebra", "RecipesBase", "SparseArrays"]
-git-tree-sha1 = "f68a5ec368c54354098e87df46fd055c623281be"
+git-tree-sha1 = "09a09b4a16be1c4e5168d3e481ec17f0feb6d063"
 repo-rev = "master"
 repo-url = ".."
 uuid = "49623fec-419c-11e9-3823-bdf44d0d9bd0"

@@ -4,7 +4,7 @@ makedocs(
     modules = [NumMat],
     doctest = false,
     format = Documenter.HTML(
-        prettyurls = get(ENV, "CI", nothing) == "true",
+        prettyurls = true,
         mathengine = Documenter.MathJax(Dict(:TeX => Dict(:equationNumbers => Dict(:autoNumber => "AMS")))),
     ),
     checkdocs = :exports,

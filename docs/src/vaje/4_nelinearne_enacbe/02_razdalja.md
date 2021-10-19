@@ -37,9 +37,9 @@ f(t, s) = [x(t) - x(s), y(t) - y(s)]
 Jf(t, s) = [dx(t) -dx(s); dy(t) -dy(s)]
 
 let t0 = 1; s0 = 3
-plot!([x(t0), x(s0)]; [y(t0), y(s0)], marker=:circle)
+plot!([x(t0), x(s0)], [y(t0), y(s0)], marker=:circle)
 for i=1:5
-  [t0, s0] = [t0, s0] - Jf(t0, s0)\f(t0, s0)
+  t0, s0 = [t0, s0] - Jf(t0, s0)\f(t0, s0)
   plot!([x(t0), x(s0)], [y(t0), y(s0)], marker=:circle)
 end
 end # let
