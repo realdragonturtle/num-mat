@@ -18,6 +18,8 @@ RUN sudo apt-get update \
         curl \
     && sudo rm -rf /var/lib/apt/lists/*
 
+USER root
+
 # Install current version of julia (see https://github.com/docker-library/julia)
 ENV JULIA_PATH /usr/local/julia
 ENV PATH $JULIA_PATH/bin:$PATH
@@ -80,10 +82,11 @@ RUN set -eux; \
 	\
 	apt-mark auto '.*' > /dev/null; \
 	[ -z "$savedAptMark" ] || apt-mark manual $savedAptMark; \
-	apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
-	\
+	apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false;
+    
+USER gitpod
     # smoke test
-	julia --version
+RUN	julia --version
 
 # Give control back to Gitpod Layer
 USER root
