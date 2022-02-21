@@ -1,2 +1,3 @@
 [deps]
+NumMat = "49623fec-419c-11e9-3823-bdf44d0d9bd0"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"

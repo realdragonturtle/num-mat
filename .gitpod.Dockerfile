@@ -88,5 +88,20 @@ USER gitpod
     # smoke test
 RUN	julia --version
 
+# Install packages
+ENV TEMP="/home/gitpod/tmp"
+RUN mkdir $TEMP
+WORKDIR ${TEMP}
+COPY *.toml $TEMP
+RUN mkdir ${TEMP}/src
+COPY ./ $TEMP/
+RUN julia --project=$TEMP -e 'import Pkg; Pkg.instantiate()'
+WORKDIR ${TEMP}/test
+RUN julia --project=$TEMP/test -e 'import Pkg; Pkg.instantiate();'
+WORKDIR ${TEMP}/dev/
+RUN julia --project=$TEMP/dev -e 'import Pkg; Pkg.instantiate();'
+WORKDIR ${TEMP}/docs/
+RUN julia --project=$TEMP/docs -e 'import Pkg; Pkg.instantiate();'
+
 # Give control back to Gitpod Layer
 USER root
