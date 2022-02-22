@@ -1,3 +1,4 @@
+export BabilonskiObrazec, zacetni_priblizek, koren_babilonski, koren
 
 """
     zacetni_priblizek(x)

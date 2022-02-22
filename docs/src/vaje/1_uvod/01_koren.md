@@ -231,3 +231,15 @@ spoznali pri računanju kvadratnega korena z babilonskim obrazcem, je posebej pr
 zvit, skoraj magičen način za dober začetni približek. Metoda uporabi posebno vrednost `0x5f3759df`, da pride do začetnega 
 približka, nato pa še en korak [tangentne metode](ttps://sl.wikipedia.org/wiki/Newtonova_metoda).
 Več o [računanju obratne vrednosti kvadratnega korena](https://en.wikipedia.org/wiki/Fast_inverse_square_root).
+
+
+## Koda
+
+```@index
+Pages = ["01_koren.md"]
+```
+
+```@autodocs
+Modules = [NumMat]
+Pages = ["koren.jl"]
+```

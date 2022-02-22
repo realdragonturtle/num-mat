@@ -1,6 +1,7 @@
 "Programi pri numerični matematiki na FRI"
 module NumMat
 
+include("vaje/1_uvod/koren.jl")
 include("vaje/2_linearni_sistemi/tridiagonalna.jl")
 include("vaje/2_linearni_sistemi/rbf.jl")
 include("vaje/2_linearni_sistemi/Laplace2D.jl")
