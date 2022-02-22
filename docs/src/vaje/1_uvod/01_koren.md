@@ -110,7 +110,7 @@ od števila 1 oddaljimo, je približek vedno slabši, dlje kot smo oddaljeni od 
 ```@example
 using Plots
 plot(x->x/2, 0, 10, label="začetni približek")
-plot(x->sqrt(x), 0, 10, label="korenska funkcija")
+plot!(x->sqrt(x), 0, 10, label="korenska funkcija")
 savefig("koren_zacetni_priblizek.png")
 ```
 
