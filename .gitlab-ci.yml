@@ -21,6 +21,8 @@ pages:
     paths:
       - public
   only:
+    changes:
+      - docs/build
     refs:
       - master
       
