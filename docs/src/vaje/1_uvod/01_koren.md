@@ -1,8 +1,12 @@
+```@meta
+CurrentModule = NumMat
+```
+
 # Računanje kvadratnega korena
 
 Računalniški procesorji navadno implementirajo le osnovne številske operacije:
- seštevanje, množenje in deljenje. Za računanje drugih matematičnih funkcij 
- mora nekdo napisati program.
+seštevanje, množenje in deljenje. Za računanje drugih matematičnih funkcij 
+mora nekdo napisati program.
  
 !!! note "Elementarne funkcije so v stadardni knjižnici večine jezikov"
  
@@ -12,46 +16,20 @@ Računalniški procesorji navadno implementirajo le osnovne številske operacije
 
 ## Naloga
 
-Na različne načine izračunaj kvadratni koren. Napiši več metod za funkcijo 
-`koren`, tako da uporabiš [večlično razpošiljanje (multiple dispatch)](https://en.wikipedia.org/wiki/Multiple_dispatch) na 
-abstraktne tipe, ki predstavljajo različne metode. Na primer definiramo dve 
-različni metodi za koren
-
-```@example koren_1
-struct NapacenKoren end
-struct VgrajenaFunkcija end
-
-function koren(x, metoda::NapacenKoren)
- x/2
-end
-
-function koren(x, metoda::VgrajenaFunkcija)
- sqrt(x)
-end
-
-```
-
-ki jih nato lahko pokličemo, tako da spremenimo 2. argument:
-
-
-```@repl koren_1
-koren(2, NapacenKoren())
-koren(2, VgrajenaFunkcija())
-```
+Napiši funkcijo `y = koren(x)`, ki bo izračunala približek za kvadratni koren števila `x`. Poskrbi, da bo rezultat pravilen na 10 decimalnih mest in da bo časovna zahtevnost neodvisna od argumenta `x`. 
 
 ## Računajne kvadratnega korena z babilonskim obrazcem
 
 Z računajnjem kvadratnega korena so se ukvarjali pred 3500 leti v Babilonu. O tem si lahko več preberete v [članku v reviji Presek](http://www.presek.si/21/1160-Domajnko.pdf). Moderna verzija metode računanja približka predstavlja rekurzivno 
-zaporedje, ki konvergira k vrednosti kvadratnega korena danega števila $x$. Rekurzivna formula
-
+zaporedje, ki konvergira k vrednosti kvadratnega korena danega števila $x$. Zaporedje približkov lahko izračunamo, tako da uporabimo rekurzivno formulo
 
 ```math
 a_{n+1} = \frac{1}{2}\cdot(a_n + \frac{x}{a_n}).
 ```
 
-Če izberemo začetni približek, zgornja formula določa zaporedje, ki vedno konvergira bodisi k $\sqrt{x}$ ali $-\sqrt{x}$, odvisno od izbire začetnega približka. Poleg tega, da zaporedje hitro konvergira k limiti, je program, ki računa člene izjemno preprost. Poglejmo si primer računanje $\sqrt{2}$
+Če izberemo začetni približek, zgornja formula določa zaporedje, ki vedno konvergira bodisi k $\sqrt{x}$ ali $-\sqrt{x}$, odvisno od izbire začetnega približka. Poleg tega, da zaporedje hitro konvergira k limiti, je program, ki računa člene izjemno preprost. Poglejmo si primer kako izračunamo $\sqrt{2}$:
 
-```@example koren_2_babilon
+```@example
 let 
   x = 1.5
   for n = 1:5
@@ -61,11 +39,11 @@ let
 end
 ```
 
-Vidimo, da se približki začnejo ponavljati že po 4. koraku. To pomeni, da se zaporedje ne bo več spreminjalo in smo dosegli najboljši približek, kot a lahko v 64 bitnih številih s plavjočo vejico. 
+Vidimo, da se približki začnejo ponavljati že po 4. koraku. To pomeni, da se zaporedje ne bo več spreminjalo in smo dosegli najboljši približek, kot ga lahko predstavimo z 64 bitnimi števili s plavajočo vejico. 
 
-Napišimo zgornji algoritem še kot funkcijo.
+Napišimo zgornji algoritem še kot funkcijo:
 
-```@example koren_babilon; continued = true
+```@example koren
 """
     koren_babilonski(x, x0, n)
 
@@ -82,7 +60,7 @@ end
 
 Preskusimo funkcijo na številu 3.
 
-```@example koren_babilon; continued=false
+```@example koren
 x  = koren_babilonski(3, 1.7, 5)
 println("Koren števila 3: $x")
 println("Razlika z vgrajeno funkcijo: $(x-sqrt(3))")
@@ -90,27 +68,62 @@ println("Razlika z vgrajeno funkcijo: $(x-sqrt(3))")
 
 !!! note "Metoda navadne iteracije in tangentna metoda"
 
-     Metoda računanja kvadratnega korena z rekurzivnim zaporedjem je poseben primer [tangentne metode](https://sl.wikipedia.org/wiki/Newtonova_metoda), ki je poseben primer [metode fiksne točke](https://sl.wikipedia.org/wiki/Metoda_navadne_iteracije). Obe metodi, si bomo podrobneje ogledali, v poglavju o nelinearnih enačbah.
+     Metoda računanja kvadratnega korena z babilonskim obrazcem je poseben primer [tangentne metode](https://sl.wikipedia.org/wiki/Newtonova_metoda), ki je poseben primer [metode fiksne točke](https://sl.wikipedia.org/wiki/Metoda_navadne_iteracije). Obe metodi, si bomo podrobneje ogledali, v poglavju o nelinearnih enačbah.
 
 
 ### Izbira začetnega približka
 
 Funkcija `koren_babilonski(x, x0, n)` ni uporabna za splošno rabo, saj mora uporabnik poznati tako začetni približek, 
-kot tudi število korakov, ki so potrebni, da dosežemo željeno natančnost. Funkcija mora sama izbrati začetni približek, kot tudi število korakov.
+kot tudi število korakov, ki so potrebni, da dosežemo željeno natančnost. Da bi lahko funkcijo uporabljal kdor koli, bi morala funkcija sama izbrati začetni približek, kot tudi število korakov.
 
-Kako bi učinkovito izbrali dober začetni približek? Ker rekurzivno zaporedje konvergira ne glede na izbran začetni približek, lahko uporabimo kar samo število $x$. Ali pa uporabimo diferencial(prva dva člena v Taylorjevem razvoju) okrog števila 1
+Kako bi učinkovito izbrali dober začetni približek? Dokazati je mogoče, da rekurzivno zaporedje konvergira ne glede na izbran začetni približek. Tako lahko uporabimo kar samo število $x$. Malce boljši približek dobimo s Taylorjevem razvojem korenske funkcije okrog števila 1
 
 ```math
-\sqrt{x} = 1 + \frac{1}{2}(x-1) + ... \approx 1/2 + x/2
+\sqrt{x} = 1 + \frac{1}{2}(x-1) + ... \approx 1/2 + x/2.
 ``` 
 
-Začetni približek $1/2 + x/2$ dobro deluje za števila blizu 1, če isto formulo za začetni približek preskusimo za večja števila, dobimo večjo relativno napko. Oziroma potrebujemo več korakov zanke, da pridemo do enake natančnosti. Razlog je v tem, da je $\frac{x}{$ dober približek za majhna števila, če pa se 
-od števila 1 oddaljimo, je približek vedno slabši, dlje kot smo oddaljeni od 1:
+Število korakov lahko izberemo avtomatsko tako, da računamo nove približke, dokler relativna napaka ne pade pod v naprej predpisano mejo (v našem primeru bomo izbrali napako tako, da bomo dobili približno 10 pravilnih decimalnih mest). Program implementiramo kot novo metodo za funkcijo `koren`
+
+```@example koren
+"""
+    y, st_iteracij = koren_babilonski(x, x0)
+
+Izračunaj vrednost kvadratnega korena danega števila `x` z babilonskim obrazcem z začetnim približkom `x0`. Funkcija vrne 
+vrednost približka za kvadratni koren in število iteracij (kolikokrat zaporedoma smo uporabili babilonski obrazec, da smo dobili zahtevano natančnost).
+"""
+function koren_babilonski(x, x0)
+    a = x0
+    it = 0
+    while abs(a^2 - x) > abs(x)*0.5e-11 
+        a = (a + x/a)/2
+        it += 1
+    end
+    return a, it
+end
+
+y, it = koren_babilonski(10, 0.5 + 10/2)
+println("Za izračun korena števila 10, potrebujemo $it korakov.")
+y, it = koren_babilonski(1000, 0.5 + 1000/2)
+println("Za izračun korena števila 1000, potrebujemo $it korakov.")
+```
+
+Opazimo, da za večje število, potrebujemo več korakov. Poglejmo si, kako se število korakov spreminja, v odvisnosti od števila `x`.
+
+```@example koren
+
+using Plots
+plot(x -> koren_babilonski(x, 0.5 + x/2)[2], 0.0001, 10000, xaxis=:log10, minorticks = true, formatter=identity, label="število korakov")
+savefig("koren_stevilo_korakov.png")
+```
+
+![Število korakov v odvisnosti od argumenta](koren_stevilo_korakov.png)
+
+Začetni približek $1/2 + x/2$ dobro deluje za števila blizu 1, če isto formulo za začetni približek preskusimo za večja števila, dobimo večjo relativno napako. Oziroma potrebujemo več korakov zanke, da pridemo do enake natančnosti. Razlog je v tem, da je $\frac{1}{2} + \frac{x}{2}$ dober približek za majhna števila, če pa se od števila 1 oddaljimo, je približek slabši, bolj kot smo oddaljeni od 1:
 
 ```@example
 using Plots
-plot(x->x/2, 0, 10, label="začetni približek")
-plot!(x->sqrt(x), 0, 10, label="korenska funkcija")
+plot(x -> 0.5 + x/2, 0, 10, label="začetni približek")
+plot!(x -> sqrt(x), 0, 10, label="korenska funkcija")
 savefig("koren_zacetni_priblizek.png")
 ```
 
@@ -136,92 +149,92 @@ dober začetni približek dobimo tako, da $\sqrt{m}$ aproksimiramo razvojem v Ta
 \sqrt{m} \approx 1 + \frac{1}{2}(m-1) = 1/2 + m/2
 ```
 
-Če eksponent delimo z 2 in upoštevamo ostanek $e = 2d + o$, lahko $\sqrt{2^e}$ približno zapišemo kot
+Če eksponent delimo z 2 in zanemarimo ostanek $e = 2d + o$, lahko $\sqrt{2^e}$ približno zapišemo kot
 
 ```math
-\sqrt{2^e} \approx 2^d,
+\sqrt{2^e} \approx 2^d.
 ```
 
-pri čemer smo ostanek zanemarili. Celi del števila pri deljenju z 2 lahko dobimo z binarnim premikom v desno (right shift).
-Tako lahko zapišemo naslednjo funckijo za začetni približek
+Celi del števila pri deljenju z 2 lahko dobimo z binarnim premikom v desno (right shift). Potenco števila $2^n$, pa
+z binarnim premikom števila 1 v levo za $n$ mest.
+Tako lahko zapišemo naslednjo funckijo za začetni približek:
 
-```@example koren_priblizek
+```@example koren
 """
     zacetni_priblizek(x)
 
-Izračunaj začetni približek za tangentno metodo za računanjekvadratnega korena števila `x`. 
+Izračunaj začetni približek za tangentno metodo za računanje kvadratnega korena števila `x`. 
 """
 function zacetni_priblizek(x)
-  d = exponent(x) >> 1 # desni premik, oziroma deljenje z 2
+  d = exponent(x) >> 1 # desni premik oziroma deljenje z 2
   m = significand(x)
-  return (0.5 + 0.5*m)*(2^d)
+  if d < 0
+    return (0.5 + 0.5*m) / (1 << -d)
+  end
+  return (0.5 + 0.5*m) * (1 << d)
 end
 ```
 
-Poglejmo, kako se obnaša relativna napaka, če uporabimo izboljšano verzijo začetnega približka.
+Primrjajmo izboljšano verzijo začetnega približka s pravo korensko funkcijo:
 
-```@example
+```@example koren
 using Plots
-scatter(x -> log10(abs(koren_babilonski(x, zacetni_priblizek(x), 6) - x)/x),0, 10000, label="Logaritem napake", markersize=1)
-savefig("napaka_koren.png")
+plot(zacetni_priblizek, 0, 1000, label="začetni približek")
+plot!(sqrt, 0, 1000, label="kvadratni koren")
+savefig("koren_izboljsan_zp.png")
 ```
 
-![Desetiški logaritem napake](napaka-koren.png)
+![Izboljšan začetni približek](koren_izboljsan_zp.png)
 
-## Transformacija definicijskega območja
+Oglejmo si sedaj število korakov, če uporabimo izboljšani začetni približek.
 
-Določena formula ali metoda ni vedno uporabna na celotnem definicijskem območju funkcije. Tako smo videli v prejšnjem razdelku, da je fiksno število korakov tangentne metode s preprosto formulo za začetni približek dalo dober rezultat le v bližini števila 1. Rešitev lahko naslovimo s transformacijo definicijskega območja na ožji interval, na katerem izbrana metoda dobro deluje. Poglejmo si zopet zapis s plavajočo vejico
+```@example koren
 
-```math
- x = m\cdot 2^{2d+o}
-```
-
-kjer smo eksponent že razstavili na sodo število in ostanek. Če izračunamo koren
-
-```math
-\sqrt{x} = \sqrt{m\cdot 2^o}\cdot 2^d
-```
-
-Ker je $m\in [0.5, 1)$, je $x\cdot 2^{-2d} = m\cdot 2^o \in [0.5, 2)$, lahko za izračun korena uporabimo formulo, ki deluje na intervalu $[0.5, 2)$.
-
-Izbrati moramo število korakov, pri katerem bo relativna napaka ustrezno majhna na intervalu $[0.5, 2)$. To se zgodi 
-pri $n = 6$ za izbiro začetnega približka $1/2 + x/2$.
-
-```@example
 using Plots
-rel_napaka(x) = (koren_babilonski(x, 0.5 + x/2, 6)^2 - x)/x
+plot(x -> koren_babilonski(x, zacetni_priblizek(x))[2], 0.0001, 10000, xaxis=:log10, minorticks = true, formatter=identity, label="število korakov")
+savefig("koren_stevilo_korakov_izp.png")
+```
+
+![Število korakov v odvisnosti od argumenta za izboljšan začetni približek](koren_stevilo_korakov_izp.png)
+
+Opazimo, da se število korakov ne spreminja več z naraščanjem argumenta, to pomeni, da bo časovna zahtevnost tako implemetirane korenske funkcije konstantna in neodvisna od izbire argumenta.
+
+
+```@example koren
+using Plots
+rel_napaka(x) = (koren_babilonski(x, 0.5 + x/2, 4)^2 - x)/x
 plot(rel_napaka, 0.5, 2)
-savefig("napaka_koren.png")
+savefig("napaka_koren_babilonski.png")
 ```
 
-![Relativna napaka na [0.5, 2]](napaka_koren.png)
+![Relativna napaka na [0.5, 2]](napaka_koren_babilonski.png)
 
 
 Sedaj lahko sestavimo funkcijo za računanje korena, ki potrebuje le število in ima konstantno časovno zahtevnost
 
-```@example
+```@example koren
 """
-    metoda = BabilonskiObrazec()
-
-Pomožni podatkovni tip, ki predstavlja metodo računanja korena z babilonskim obrazcem
-"""
-struct BabilonskiObrazec
-end
-
-"""
-    koren(x, BabilonskiObrazec())
+    y = koren(x)
 
 Izračunaj kvadratni koren danega števila `x` z babilonskim obrazcem. 
 """
-function koren(x, metoda::BabilonskiObrazec)
-    d = (exponent >> 1) # polovični exsponent
-    x_trans = x * 2^(-(d << 1)) # transfromacija na interval [0.5, 2)
-    x_0 = 0.5 + x_trans/2 
-    return koren_babilonski(x_trans, x_0, 6) * 2^d
+function koren(x)
+    y = zacetni_priblizek(x) 
+    for i = 1:4
+        y = (y + x / y)/2
+    end 
+    return y
 end
 ```
 
-Relativna napaka je neodvisna od izbranega števila, prav tako za izračun tudi potrebujemo enako število operacij.
+Preverimo, da je relativna napaka neodvisna od izbranega števila, prav tako pa za izračun potrebujemo enako število operacij.
+
+```@example koren
+plot(x -> (koren(x)^2 - x)/x, 0.001, 1000.0, xaxis=:log, minorticks = true, formatter=identity, label="relativna napaka")
+savefig("koren_relativna_napaka.png")
+```
+
+![Relativna napaka korenske funkcije](koren_relativna_napaka.png)
 
 ## Hitro računanje obratne vrednosti kvadratnega korena
 
@@ -231,15 +244,3 @@ spoznali pri računanju kvadratnega korena z babilonskim obrazcem, je posebej pr
 zvit, skoraj magičen način za dober začetni približek. Metoda uporabi posebno vrednost `0x5f3759df`, da pride do začetnega 
 približka, nato pa še en korak [tangentne metode](ttps://sl.wikipedia.org/wiki/Newtonova_metoda).
 Več o [računanju obratne vrednosti kvadratnega korena](https://en.wikipedia.org/wiki/Fast_inverse_square_root).
-
-
-## Koda
-
-```@index
-Pages = ["01_koren.md"]
-```
-
-```@autodocs
-Modules = [NumMat]
-Pages = ["koren.jl"]
-```
