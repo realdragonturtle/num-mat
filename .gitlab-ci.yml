@@ -2,9 +2,6 @@ variables:
   DOCKER_DRIVER: overlay2
 image: registry.gitlab.com/nummat/vaje-nummat:latest
 
-before_script:
-    - julia --project=@. -e "import Pkg; Pkg.build()"
-
 default:
   script:
     - julia --project=@. -e "import Pkg; Pkg.test(; coverage = true)"
