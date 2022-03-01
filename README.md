@@ -7,7 +7,7 @@
 
 ## Navodila
 
-To je projekt z gradivi in domačimi nalogami pri predmetu [Numerična matematika](https://ucilnica.fri.uni-lj.si/1920/course/view.php?id=117).
+To je projekt z gradivi in domačimi nalogami pri predmetu [Numerična matematika](https://ucilnica.fri.uni-lj.si/2122/course/view.php?id=117).
 Za praktično delo pri tem predmetu bomo uporabljali platformo GitLab, ki omogoča 
 vodenje projektov in sodelovanje. 
 

@@ -2,21 +2,21 @@
 
 ## Oddaja naloge
 
-Naloge oddajte na [Gitlab](https://gitlab.com/nummat/nummat-1920/).
+Naloge oddajte na [Gitlab](https://gitlab.com/nummat/nummat-2122/).
 
 !!! warning
 
     Naloge, ki jih boste oddali na Gitlabu, bodo **javno dostopne**. Če kdo
     ne želi, da je njegov izdelek javno dostopen, naj si ustvari
     privatno [različico(fork)](https://docs.gitlab.com/ee/gitlab-basics/fork-project.html)
-    repozitorija [nummat-1920](https://gitlab.com/nummat/nummat-1920) in
+    repozitorija [nummat-2122](https://gitlab.com/nummat/nummat-2122) in
     naj povabi zraven kolega, ki bo kodo pregledal in asistenta(@mrcinv). Če
     kdo ne želi uporabljati Gitlaba ali programskega jezika julia, naj
     se oglasi asistentu.
 
 Navodila za oddajo naloge (glejte tudi [dokument o delu z gitom in Gitlabom](../workflow.md))
 
-- [Ustvarite](https://gitlab.com/nummat/nummat-1920/issues/new) svoj
+- [Ustvarite](https://gitlab.com/nummat/nummat-2122/issues/new) svoj
    zahtevek(issue) in [zahtevo za združitev(merge request)](https://docs.gitlab.com/ee/gitlab-basics/add-merge-request.html#how-to-create-a-merge-request).
 - Napište kodo, teste in kratek dokument z opisom rešitve in primerom. Kodo
    potisnite na repozitorij v svoji git veji.

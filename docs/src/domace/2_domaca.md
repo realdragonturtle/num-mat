@@ -8,7 +8,7 @@ Depth = 3
 ## Navodila
 
 Izberite eno izmed spodnjih nalog. Po možnosti tako, ki je ni še nihče drug
-izbral (preverite [zahtevke na Gitlabu](https://gitlab.com/nummat/nummat-1920/issues)).
+izbral (preverite [zahtevke na Gitlabu](https://gitlab.com/nummat/nummat-2122/issues)).
 
 !!! note
 

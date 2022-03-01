@@ -70,8 +70,8 @@ Seznam opravil za domačo nalogo:
  - najprej si na svojem računalniku ustvarite klon repozitorija
 
 ```
-git clone https://gitlab.com/nummat/nummat-1920.git
-cd nummat-1920
+git clone https://gitlab.com/nummat/nummat-2122.git
+cd nummat-2122
 ```
 
  - nato ustvarite novo 

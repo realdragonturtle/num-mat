@@ -1,6 +1,6 @@
 # Rešeni problemi iz numerične matematike
 
-To je dokumentacija z gradivi za vaje in domače naloge pri predmetu [Numerična matematika](https://ucilnica.fri.uni-lj.si/1920/course/view.php?id=117).
+To je dokumentacija z gradivi za vaje in domače naloge pri predmetu [Numerična matematika](https://ucilnica.fri.uni-lj.si/2122/course/view.php?id=117).
 
 Za praktično delo pri tem predmetu bomo uporabljali platformo GitLab, ki omogoča
 vodenje projektov in sodelovanje. Preberite si več o načinu dela v [vodiču za sodelovanje](contributing.md) in 
@@ -10,11 +10,11 @@ vodenje projektov in sodelovanje. Preberite si več o načinu dela v [vodiču za
 
 Prenesite kodo na svoj računalnik z ukazom `git clone`
 
-    git clone https://gitlab.com/nummat/nummat-1920.git
+    git clone https://gitlab.com/nummat/nummat-2122.git
 
 Programi so napisani v programskem jeziku [julia](https://julialang.org/). Za urejanje programov priporočamo uporabo urejevalnikov [Atom](https://atom.io/), [Visual Studio Code](https://code.visualstudio.com/) ali [emacs](https://www.gnu.org/software/emacs/), a vsak sodoben urejevalnik bi moral zadoščati. Za začetek poženite julia [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop), v katerem lahko preiskusite programe in primere iz vaj
 
-    cd nummat-1920
+    cd nummat-2122
     julia --project=@.
 
 V julia REPL naložimo [paket/knjižnico](https://docs.julialang.org/en/v1/stdlib/Pkg/) `Nummat` in pogledamo opis  [modula](https://docs.julialang.org/en/v1/manual/modules/) z [makro](https://docs.julialang.org/en/v1/manual/metaprogramming/#man-macros-1) ukazom `@doc`
