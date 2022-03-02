@@ -2,21 +2,21 @@
 
 Da bomo lažje uskladili delo je na voljo [julia
 projekt](https://docs.julialang.org/en/v1.0/stdlib/Pkg/#Creating-your-own-projects-1)
-`dev`. Projekt `dev` bo poskrbel, da se namestijo vse knjižnice, ki jih bomo na
-vajah potrebovali. Paket aktiviramo z opcijo `--project=dev` ukazu `julia`
+`vaje`. V tem projektu se zbirajo programi in primeri, ki jih delamo na vajah. Poleg tega datoteka `Projekt.toml` poskrbi, da se namestijo vse knjižnice, ki jih bomo na
+vajah potrebovali. Paket aktiviramo z opcijo `--project=vaje` ukazu `julia`
 
     cd vaje-nummat
-    julia --project=dev
+    julia --project=vaje
 
-ali pa znotraj julie z ukazom `Pkg.activate("dev")` oziroma `activate dev` v
+ali pa znotraj julie z ukazom `Pkg.activate("vaje")` oziroma `activate vaje` v
 [načinu za
 pakete](https://docs.julialang.org/en/v1.0/stdlib/Pkg/#Getting-Started-1), v
 katerega pridete z vnosom `]` v julia [REPL](https://docs.julialang.org/en/v1.0/stdlib/REPL/)
 
 ```julia-repl
 julia>]
-(v1.0) >activate dev
-(dev) >
+(v1.0) >activate vaje
+(vaje) >
 ```
 
 ## Inicializacija
@@ -25,7 +25,7 @@ V programu `julia` najprej naložimo vse potrebne pakete
 
 ```julia-repl
 julia>]
-(dev) pkg>instantiate
+(vaje) pkg>instantiate
 ```
 
 Okolje lahko preiskusimo tako, da naložimo paket `NumMat`
