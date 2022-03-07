@@ -12,7 +12,7 @@ struct Tridiagonalna{T}
 end
 
 export Tridiagonalna
-import Base:size, length, *, Matrix
+import Base:size, length, *, Matrix, \
 
 """
     T\\b
