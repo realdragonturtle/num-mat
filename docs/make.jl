@@ -19,8 +19,8 @@ makedocs(
     modules = [NumMat],
     doctest = false,
     format = Documenter.HTML(
-        prettyurls = true,
-        mathengine = Documenter.MathJax(Dict(:TeX => Dict(:equationNumbers => Dict(:autoNumber => "AMS")))),
+      prettyurls = get(ENV, "CI", nothing) == "true",
+      mathengine = Documenter.MathJax(Dict(:TeX => Dict(:equationNumbers => Dict(:autoNumber => "AMS")))),
     ),
     checkdocs = :exports,
     sitename = "Numerična matematika na FRI",

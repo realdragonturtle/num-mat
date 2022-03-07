@@ -9,10 +9,13 @@ default:
     - julia --project=test/coverage test/coverage/coverage-summary.jl
   except:
     - vaje
-
+  
 pages:
   stage: deploy
   script:
+    - julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd()));
+                                               Pkg.instantiate()'
+    - julia --project=docs/ docs/make.jl
     - mv docs/build public # move to the directory picked up by Gitlab pages
   artifacts:
     paths:
