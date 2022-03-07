@@ -17,3 +17,27 @@ docker run
 
 ```
 
+## Priprava Docker slike za Gitlab CI
+
+Da skrajšamo pripravo okolja za testiranje in generiranje dokumentacije na [Gitlab CI](https://docs.gitlab.com/ee/ci/), je dobro pripraviti docker sliko z nameščenimi knjižnicami in jo objaviti v
+[Gitlab Docker registry](https://docs.gitlab.com/ee/user/packages/container_registry/).
+
+Sliko lahko pripravimo z ukazom
+
+```
+docker build -t registry.gitlab.com/nummat/vaje-nummat:latest .
+```
+
+in jo nato potisnemo na [Gitlabov imenik slik](https://docs.gitlab.com/ee/user/packages/container_registry/)
+
+```
+docker push registry.gitlab.com/nummat/vaje-nummat:latest
+```
+
+### Prijava v Gitlab Docker Registry
+
+Preden sliko potisnemo na Gitlabov imenik, se moramo prijaviti. Najprej si ustvarimo [osebni žeton za dostop](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html). Nato pa se prijavimo v imenik
+
+```
+docker login
+```
