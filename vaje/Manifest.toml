@@ -511,11 +511,9 @@ uuid = "ca575930-c2e3-43a9-ace4-1e988b2c1908"
 
 [[deps.NumMat]]
 deps = ["LinearAlgebra", "RecipesBase", "SparseArrays"]
-git-tree-sha1 = "f5493cb5f27be421bb3088cd5e3aa982d972e6da"
-repo-rev = "master"
-repo-url = ".."
+path = ".."
 uuid = "49623fec-419c-11e9-3823-bdf44d0d9bd0"
-version = "0.1.4"
+version = "0.2.0"
 
 [[deps.Ogg_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]

@@ -1,7 +1,7 @@
 name = "NumMat"
 uuid = "49623fec-419c-11e9-3823-bdf44d0d9bd0"
 authors = ["Martin Vuk <martin.vuk@fri.uni-lj.si>"]
-version = "0.1.4"
+version = "0.2.0"
 
 [deps]
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
