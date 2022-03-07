@@ -1,5 +1,20 @@
 using Documenter, NumMat
+import Literate
 
+VAJE_JL = joinpath(@__DIR__, "..", "vaje")
+VAJE_MD = joinpath(@__DIR__, "src", "vaje")
+"""
+      generate_markdown()
+
+Generiraj markdown datoteke iz izvornih julia datotek z orodjem `Literate.jl`
+"""
+function generate_markdown()
+   Literate.markdown(
+      joinpath(VAJE_JL, "2_linearni_sistemi", "resevanje_lin_sistemov.jl"), 
+      joinpath(VAJE_MD, "2_linearni_sistemi"), documenter = true)
+end
+
+generate_markdown()
 makedocs(
     modules = [NumMat],
     doctest = false,
@@ -16,6 +31,7 @@ makedocs(
                "vaje/1_uvod/02_pi.md",
                        ],
              "Linearni sistemi" => [
+                "vaje/2_linearni_sistemi/resevanje_lin_sistemov.md",
                 "vaje/2_linearni_sistemi/02_tridiagonalni_sistemi.md",
                 "vaje/2_linearni_sistemi/03_minimalne_ploskve.md",
                 "vaje/2_linearni_sistemi/04_iteracijske_metode.md",
@@ -58,5 +74,5 @@ makedocs(
                 "lib/internals.md"
                             ]
             ],
-    repo = "https://gitlab.com/nummat/vaje-nummat/blob/{commit}{path}#{line}"
+    repo = "https://gitlab.com/nummat/nummat-2122/blob/{commit}{path}#{line}"
 )
