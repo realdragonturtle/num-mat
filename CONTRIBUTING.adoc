@@ -31,11 +31,6 @@ oblik:
 
  - rešitve domačih nalog v obliki *zahteve za združitev(merge request)*
  - pregled rešitev domačih nalog svojih kolegov
- - sodelovanje na vajah
-   - pisanje kode
-   - pisanje dokumentacije
-   - pisanje testov
- - sodelovanje preko zaznamkov (issues)
 
 Ocena se določi na podlagi kvalitete prispevkov
  
@@ -45,6 +40,7 @@ Ocena se določi na podlagi kvalitete prispevkov
   - ocena se lahko le še popravi z bolj kvalitetnimi prispevki
 
 === Kako oddati domačo nalogo
+
 Domače naloge oddajte kot 
 https://gitlab.com/help/user/project/merge_requests/index.md[zahtevo za združitev (merge request)]. 
 Spodaj je zelo na kratek opis, kako to naredite. Predpostavljam, da ste vsaj malo
@@ -56,8 +52,10 @@ Seznam opravil za domačo nalogo:
  - [ ] pripravite https://gitlab.com/help/user/project/merge_requests/index.md[zahtevo za združitev]
  - [ ] napišete kodo, teste in dokumentacijo
  - [ ] povabite kolega za pregled
+ - [ ] izdelek izboljšate 
  - [ ] ko vaš kolega potrdi vašo nalogo, povabite še asistenta za pregled
- - [ ] asistent združi vašo vejo v master (ali pa vas pošlje na 3. korak
+ - [ ] asistent vašo *odobri* vejo (ali pa zahteva dodatne popravke)
+ - [ ] veja se združi v glavno vejo
 
 === Delo z izvorno kodo z Git-om
 

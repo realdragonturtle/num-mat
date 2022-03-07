@@ -14,22 +14,34 @@ vodenje projektov in sodelovanje.
 Preberite si več o načinu dela v [vodiču za sodelovanje](CONTRIBUTING.adoc) in 
 [kako poteka delo v GitLab](workflow.adoc).
 
+## Organizacija direktorijev
+
+Repozitorij je organiziran kot [paket](https://pkgdocs.julialang.org) z imenom `NumMat` za 
+[programski jezik julia](https://julialang.org/), ki ga uporabljamo na vajah. 
+
+* `src` vseguje splošno uporabne funkcije, ki jih sprogramiramo na vajah in so del paketa `NumMat`
+* `docs` vsebuje dokumente v formatu [Markdown](https://en.wikipedia.org/wiki/Markdown) z gradivi 
+  za vaje in opisi domačih nalog.
+* `vaje` vsebuje programe, ki jih naredimo na vajah, vključno z vhodnimi podatki in grafično vizualizacijo. Programi ilustrirajo, kako uporabiti funkcije iz paketa `NumMat`.
+* `test` vsebuje kodo za testiranje funkcij iz paketa `NumMat`
+
 # Program vaj
 
 ## Uvod
 
 ### Vaja 1
+
 Računanje kvadratnega korena s Taylorjevo vrsto in Newtonovo metodo.
 
 ### Vaja 2
+
 Računanje vrednosti funkcij *sin* in *cos*.
 
 ## Linerani sistemi
 
 ### Vaja 3
 
-Implicitna interpolacija oblik z 
-[radialnimi baznimi funkcijami](https://en.wikipedia.org/wiki/Radial_basis_function).
+Tridiagonalni linearni sistemi enačb. 
 
 ### Vaja 4
 
