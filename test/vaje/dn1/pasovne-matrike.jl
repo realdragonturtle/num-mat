@@ -1,5 +1,6 @@
 using Test
 using NumMat
+using LinearAlgebra
 
 
 @testset "pasovna" begin

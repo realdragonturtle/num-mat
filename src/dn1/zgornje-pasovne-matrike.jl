@@ -90,7 +90,7 @@ end
 Izračuna rešitev sistema Mx=b za zgornje pasovno matriko M
 """
 function \(M::ZgornjePasovnaMatrika, b::Vector)
-
+    z_pas = maximum(M.pasovi.keys)
     x = zeros(M.n)
     for i=M.n:-1:1
         curr = b[i] 

@@ -90,7 +90,7 @@ end
 Izračuna rešitev sistema Mx=b za spodnje pasovno matriko M
 """
 function \(M::SpodnjePasovnaMatrika, b::Vector)
-
+    l_pas = minimum(M.pasovi.keys)
     x = zeros(M.n)
     for i=1:M.n
         curr = b[i] 
