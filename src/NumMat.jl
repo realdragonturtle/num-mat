@@ -17,4 +17,8 @@ include("5_interpolacija/zlepki.jl")
 include("6_aproksimacija/cheb.jl")
 include("7_integrali/quad.jl")
 include("8_odvodi/autodiff.jl")
+
+include("dn1/pasovne-matrike.jl")
+include("dn1/zgornje-pasovne-matrike.jl")
+include("dn1/spodnje-pasovne-matrike.jl")
 end # module
