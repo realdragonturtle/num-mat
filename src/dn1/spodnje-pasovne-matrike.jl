@@ -88,9 +88,10 @@ end
     M\\b
 
 Izračuna rešitev sistema Mx=b za spodnje pasovno matriko M
+Podana matrika in vektor morata biti tipa Float
 """
 function \(M::SpodnjePasovnaMatrika, b::Vector)
-    l_pas = minimum(M.pasovi.keys)
+    l_pas = minimum(keys(M.pasovi))
     x = zeros(M.n)
     for i=1:M.n
         curr = b[i] 

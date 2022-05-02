@@ -97,12 +97,13 @@ end
     M\\b
 
 Izračuna rešitev sistema Mx=b za pasovno matriko M
+Podana matrika in vektor morata biti tipa Float
 """
 function \(M_in::PasovnaMatrika, b::Vector)
     bc = deepcopy(b)
-    M = deepcopy(M_in)
-    z_pas = maximum(M.pasovi.keys)
-    l_pas = minimum(M.pasovi.keys)
+    M = PasovnaMatrika(deepcopy(M_in.pasovi), M_in.n)
+    z_pas = maximum(keys(M_in.pasovi))
+    l_pas = minimum(keys(M_in.pasovi))
 
     for j=1:M.n
         for i=j+1:min(M.n, -l_pas+j)
@@ -131,46 +132,44 @@ end
     lu(M)
 
 Izračuna LU razcep pasovne matrike M, vrne zgornje pasovno matriko U in spodnje pasovno matriko L
-L, U = lu(M)
+Podana matrika mora biti tipa Float
+
+Primer:
+L, U = lu(M), kjer je L SpodnjePasovnaMatrika in U ZgornjePasovnaMatrika
 """
 function lu(M::PasovnaMatrika)
-    p = Dict{Int64, Vector{Float64}}()
-    for (k, pas) in M.pasovi
-        if k<0
-            p[k] = zeros(length(pas))
-        elseif  k==0
-            p[k] = ones(length(pas))
-        end
-    end
+    p = Dict{Int64, Vector{Float64}}(k => if k<0 
+                                            zeros(length(pas)) 
+                                        elseif k==0 
+                                            ones(length(pas)) 
+                                        end 
+                                        for (k, pas) in M.pasovi if k<=0)
     L = SpodnjePasovnaMatrika(p, M.n)
     
-    l_pas = minimum(M.pasovi.keys)
-    z_pas = maximum(M.pasovi.keys)
-    A = deepcopy(M)
+    l_pas = minimum(keys(M.pasovi))
+    z_pas = maximum(keys(M.pasovi))
+    A = PasovnaMatrika(deepcopy(M.pasovi), M.n)
     
     for j=1:M.n
-        for i=j+1:-l_pas+1
+        for i=j+1:min(M.n, -l_pas+j)
             l = A[i, j] / A[j,j]
             L[i, j] = l
 
             for k=j+1:min(z_pas+j+1, M.n)
-                if A[j,j] < A[j,k]
-                    error("Ni diagonalno dominantna")
+                if A[j,j] <= A[j,k]
+                    @warn("Matrika ni diagonalno dominantna")
                 end
-                A[i, k] = A[i, k] - l * A[j, k]
+                A[i, k] -= l * A[j, k]
             end
         end
     end 
 
-    pu = Dict{Int64, Vector{Float64}}()
-    for (k, pas) in A.pasovi
-        if  k==0
-            pu[k] = copy(pas)
-        elseif k>0
-            pu[k] = copy(pas)
+    for (k, p) in A.pasovi
+        if k<0
+            delete!(A.pasovi, k)
         end
     end
-    U = ZgornjePasovnaMatrika(pu, M.n)
+    U = ZgornjePasovnaMatrika(A.pasovi, M.n)
     return (L, U)
 end
 

@@ -88,9 +88,10 @@ end
     M\\b
 
 Izračuna rešitev sistema Mx=b za zgornje pasovno matriko M
+Podana matrika in vektor morata biti tipa Float
 """
 function \(M::ZgornjePasovnaMatrika, b::Vector)
-    z_pas = maximum(M.pasovi.keys)
+    z_pas = maximum(keys(M.pasovi))
     x = zeros(M.n)
     for i=M.n:-1:1
         curr = b[i] 
