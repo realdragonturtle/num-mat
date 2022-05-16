@@ -1,4 +1,3 @@
 *.cov
-*.ipynb
 **/.ipynb_checkpoints
 docs/build/*
